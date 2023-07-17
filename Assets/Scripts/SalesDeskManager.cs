@@ -5,32 +5,15 @@ using UnityEngine;
 
 public class SalesDeskManager : MonoBehaviour
 {
-    public float waitingseconds = 10;
-    public int salesFee;
-    int _playerMoney;
+    public float waitingseconds = 10f;
     Vector3 _salesObjPos;
     public GameObject salesObject;
-    TextMeshPro salesText;
+    float yPos = 0.5f;
 
-    private void OnEnable()
-    {
-        EventManager.TotalMoney += TotalMoney;
-    }
-    private void OnDisable()
-    {
-        EventManager.TotalMoney -= TotalMoney;
-    }
-    void TotalMoney(int playerMoney)
-    {
-        _playerMoney = playerMoney;
-        IsTheMoneyEnough();
-        GameObject salesObj = Instantiate(salesObject, _salesObjPos, Quaternion.identity);
-        //StartCoroutine(createSalesObject());
-    }
     void Start()
     {
-        salesText=GetComponent<TextMeshPro>();
-        _salesObjPos=new Vector3(transform.position.x,transform.position.y+0.5f,transform.position.z-1);
+        _salesObjPos=new Vector3(transform.position.x,transform.position.y,transform.position.z-1);
+        StartCoroutine(CreateSalesObject());
     }
 
     
@@ -38,16 +21,14 @@ public class SalesDeskManager : MonoBehaviour
     {
         
     }
-    void IsTheMoneyEnough()
+    
+    IEnumerator CreateSalesObject()
     {
-        if (_playerMoney >= salesFee)
+        while(true) 
         {
-            salesText.text = " ";
+            _salesObjPos.y += yPos;
+            GameObject salesObj = Instantiate(salesObject, _salesObjPos, Quaternion.identity);
+            yield return new WaitForSeconds(waitingseconds);
         }
-    }
-    IEnumerator createSalesObject()
-    {
-        GameObject salesObj= Instantiate(salesObject,_salesObjPos,Quaternion.identity);
-        yield return new WaitForSeconds(waitingseconds);
     }
 }

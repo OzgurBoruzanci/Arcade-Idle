@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9035950232281701574}
   - component: {fileID: 9035950232281701573}
   - component: {fileID: 9035950232281701572}
+  - component: {fileID: 120384862}
   m_Layer: 0
   m_Name: Desk
   m_TagString: Untagged
@@ -95,6 +96,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &120384862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035950232281701594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f837401769ed34a48849f0878272ea80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitingseconds: 10
+  salesObject: {fileID: 0}
 --- !u!1 &9035950233278667403
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +201,7 @@ BoxCollider:
   m_GameObject: {fileID: 9035950233278667403}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 20, z: 1}
   m_Center: {x: 0, y: 10, z: 0}
@@ -201,6 +216,8 @@ GameObject:
   - component: {fileID: 6663019135514403904}
   - component: {fileID: 2157441588473679308}
   - component: {fileID: 5931746781330175787}
+  - component: {fileID: 1668633891}
+  - component: {fileID: 1668633890}
   m_Layer: 0
   m_Name: BoxSalesDesk
   m_TagString: Untagged
@@ -317,7 +334,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4.2
+  m_fontSize: 5
   m_fontSizeBase: 3
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -353,7 +370,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 8.828409, y: 0.35622025, z: 8.654224, w: 2.704577}
+  m_margin: {x: 8.545259, y: 0.00641346, z: 8.539414, w: 2.704577}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -362,3 +379,29 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+--- !u!65 &1668633891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035950233321906602}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.1483784, y: 1, z: 2.7163205}
+  m_Center: {x: 0, y: 0.5, z: 0.049625874}
+--- !u!114 &1668633890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035950233321906602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349d25f9c4138774f881bc71f6c1a585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  salesFee: 0

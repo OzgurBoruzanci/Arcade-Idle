@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3467550760978269892}
   - component: {fileID: 7547872106660250863}
   - component: {fileID: 467975762051656596}
+  - component: {fileID: 59858308}
+  - component: {fileID: 59858307}
   m_Layer: 0
   m_Name: CylinderSalesDesk
   m_TagString: Untagged
@@ -100,7 +102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: UNLOCK FOR 30 MONEY
+  m_text: "CYL\u0130NDER UNLOCK FOR 30 MONEY"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -127,7 +129,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5.1
+  m_fontSize: 5.15
   m_fontSizeBase: 3
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -163,15 +165,41 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 8.828409, y: 0.54627013, z: 8.654224, w: 2.704577}
+  m_margin: {x: 8.485163, y: -0.06668043, z: 8.551762, w: 2.704577}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 0}
+  m_renderer: {fileID: 7547872106660250863}
   m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+--- !u!65 &59858308
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631203754450733756}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.1483784, y: 1, z: 2.7163205}
+  m_Center: {x: 0, y: 0.5, z: 0.049625874}
+--- !u!114 &59858307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631203754450733756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349d25f9c4138774f881bc71f6c1a585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  salesFee: 0
 --- !u!1 &7631203754545962384
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +212,7 @@ GameObject:
   - component: {fileID: 7631203754545962388}
   - component: {fileID: 7631203754545962389}
   - component: {fileID: 7631203754545962390}
+  - component: {fileID: 1703870626}
   m_Layer: 0
   m_Name: Desk
   m_TagString: Untagged
@@ -267,6 +296,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1703870626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631203754545962384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f837401769ed34a48849f0878272ea80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitingseconds: 10
+  salesObject: {fileID: 0}
 --- !u!1 &7631203754831908240
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +401,7 @@ BoxCollider:
   m_GameObject: {fileID: 7631203754831908240}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 20, z: 1}
   m_Center: {x: 0, y: 10, z: 0}
