@@ -12,7 +12,7 @@ public class SalesDeskManager : MonoBehaviour
 
     void Start()
     {
-        _salesObjPos=new Vector3(transform.position.x,transform.position.y,transform.position.z-1);
+        _salesObjPos=new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z-2);
         StartCoroutine(CreateSalesObject());
     }
 
