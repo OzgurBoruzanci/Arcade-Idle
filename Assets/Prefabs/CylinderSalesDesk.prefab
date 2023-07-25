@@ -102,7 +102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "CYL\u0130NDER UNLOCK FOR 30 MONEY"
+  m_text: CYLINDER UNLOCK FOR 30 MONEY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -291,7 +291,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7631203754545962384}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -309,7 +309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingseconds: 10
-  salesObject: {fileID: 0}
+  salesObject: {fileID: 2745375330246402227, guid: 9168e63752f72d5408b503b4eb1b6321, type: 3}
+  salesHeight: 0.25
+  productList: []
 --- !u!1 &7631203754831908240
 GameObject:
   m_ObjectHideFlags: 0

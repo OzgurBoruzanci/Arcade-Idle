@@ -109,7 +109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingseconds: 10
-  salesObject: {fileID: 0}
+  salesObject: {fileID: 6737419372422804370, guid: 1194346b16e6b7348814791b6da3e0a4, type: 3}
+  salesHeight: 0.5
+  productList: []
 --- !u!1 &9084820013122501906
 GameObject:
   m_ObjectHideFlags: 0

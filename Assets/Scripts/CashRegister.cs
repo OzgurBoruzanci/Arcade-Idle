@@ -7,41 +7,46 @@ public class CashRegister : MonoBehaviour
     public List<GameObject> productList;
     float _listLine;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<Product>())
+        if (other.GetComponent<OpponentManager>())
         {
-            _listLine = 0;
-            productList.Add(other.gameObject);
-            other.transform.parent = transform;
-            ListEditing();
+            if (productList.Count > 0)
+            {
+                for (int i = 0; i < productList.Count; i++)
+                {                  
+                    other.GetComponent<OpponentManager>().AddProductList(productList[i]);
+                    productList.RemoveAt(i);
+                }
+                //productList.Clear();
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<OpponentManager>())
+        {
+            other.GetComponent<OpponentManager>().ListEditing();
         }
     }
     void Start()
     {
-        
+        EventManager.CashRegisterTarget(new Vector3(transform.position.x, transform.position.y, transform.position.z - 1));
     }
 
-    void Update()
+    
+    public void ListEditing()
     {
-
-    }
-    void ListEditing()
-    {
+        _listLine = 0;
         if (productList.Count > 0)
         {
             for (int i = 0; i < productList.Count; i++)
             {
-                if (productList[i].transform.parent == transform)
-                {
-                    productList[i].transform.localPosition = new Vector3(0, 0.25f + _listLine, -1.5f);
-                    _listLine += 0.5f;
-                }
-                else
-                {
-                    productList.RemoveAt(i);
-                }
+                productList[i].transform.parent = transform;
+                productList[i].transform.localPosition = new Vector3(-1.5f, 0.25f + _listLine, -1.5f);
+                _listLine += productList[i].gameObject.transform.lossyScale.y;
             }
         }
+       
     }
 }

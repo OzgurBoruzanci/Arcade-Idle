@@ -4,34 +4,64 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    int _money = 5;
+    int _money;
     float _listLine;
     Animator _playerAnim;
     public List<GameObject> productList;
+
+    private void OnEnable()
+    {
+        EventManager.EarningMoney += EarningMoney;
+        EventManager.PayMoney += PayMoney;
+    }
+    private void OnDisable()
+    {
+        EventManager.EarningMoney -= EarningMoney;
+        EventManager.PayMoney -= PayMoney;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<BuyArea>())
         {
             EventManager.TotalMoney(_money);
-            _playerAnim.SetBool("Walking", true);
+            _playerAnim.SetBool("Waiting", true);
         }
-        if (other.GetComponent<Product>())
+        if (other.GetComponent<CashRegister>())
         {
-            _listLine = 0;
-            productList.Add(other.gameObject);
-            other.transform.parent = transform;
-            ListEditing();
+            if (productList.Count > 0)
+            {
+                for (int i = 0; i < productList.Count; i++)
+                {
+                    other.GetComponent<CashRegister>().productList.Add(productList[i]);
+                }
+                productList.Clear();
+                other.GetComponent<CashRegister>().ListEditing();
+            }
         }
-       
     }
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<BuyArea>())
         {
-            _playerAnim.SetBool("Walking", false);
+            _playerAnim.SetBool("Waiting", false);
+        }
+        if (other.GetComponent<CashRegister>())
+        {
+            other.GetComponent<CashRegister>().ListEditing();
         }
     }
-
+    void EarningMoney(int getMoney)
+    {
+        _money += getMoney;
+        EventManager.MoneyText(_money);
+    }
+    void PayMoney(int payM)
+    {
+        _money -= payM;
+        EventManager.MoneyText(_money);
+    }
     void Start()
     {
         _playerAnim = transform.GetComponentInChildren<Animator>();
@@ -40,25 +70,34 @@ public class PlayerManager : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(productList.Count);
+        AnimControl();
+        if (transform.GetComponentInChildren<Animator>())
+        {
+            transform.GetChild(0).transform.localPosition = Vector3.zero;
+        }
     }
-    void ListEditing()
+    public void ListEditing()
     {
+        _listLine = 0;
         if (productList.Count > 0)
         {
             for (int i = 0; i < productList.Count; i++)
             {
-                if (productList[i].transform.parent==transform)
-                {
-                    
-                    productList[i].transform.localPosition = new Vector3(0, 0.25f + _listLine, -1.5f);
-                    _listLine += 0.5f;
-                }
-                else
-                {
-                    productList.RemoveAt(i);
-                }
+                productList[i].transform.parent = transform;
+                productList[i].transform.localPosition = new Vector3(0, 0.25f + _listLine, -1.5f);
+                _listLine += productList[i].gameObject.transform.lossyScale.y;
             }
+        }
+    }
+    void AnimControl()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _playerAnim.SetBool("Walking", true);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _playerAnim.SetBool("Walking", false);
         }
     }
 }

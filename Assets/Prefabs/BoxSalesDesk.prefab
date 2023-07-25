@@ -91,7 +91,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9035950232281701594}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -109,7 +109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingseconds: 10
-  salesObject: {fileID: 0}
+  salesObject: {fileID: 8313162526505575272, guid: 2780069f088016c4489068814fded7f0, type: 3}
+  salesHeight: 0.5
+  productList: []
 --- !u!1 &9035950233278667403
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,4 +406,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349d25f9c4138774f881bc71f6c1a585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  salesFee: 0
+  salesFee: 10

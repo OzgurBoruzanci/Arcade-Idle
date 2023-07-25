@@ -27,12 +27,6 @@ public class BuyArea : MonoBehaviour
         salesText = GetComponent<TextMeshPro>();
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerManager>())
@@ -47,6 +41,7 @@ public class BuyArea : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(true);
             salesText.text = " ";
+            EventManager.PayMoney(salesFee);
         }
     }
 }

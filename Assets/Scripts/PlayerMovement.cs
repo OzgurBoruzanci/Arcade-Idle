@@ -39,9 +39,9 @@ public class PlayerMovement : MonoBehaviour
             _vertical = dynamicJoystick.Vertical;
             _joystickPos = new Vector3(_horizontal, 0, _vertical);
             //transform.position += _joystickPos;
-           transform.position+=(_joystickPos * speed * Time.deltaTime);
+            transform.position+=(_joystickPos * speed * Time.deltaTime);
 
-            transform.rotation = Quaternion.LookRotation(_joystickPos*1);
+            transform.rotation = Quaternion.LookRotation(_joystickPos);
 
         }
         else if (Input.GetMouseButtonUp(0))

@@ -2,86 +2,139 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class OpponentManager : MonoBehaviour
 {
-    public GameObject cashRegisterTarget;
+    TextMeshPro _textMeshPro;
+    Vector3 _cashRegisterTarget;
     public GameObject money;
     public List<GameObject> productList;
     NavMeshAgent _agent;
     Animator _animator;
-    Vector3 _startPosition;
-    int _quantityDemanded;
+    Vector3 _opponentTargetPos;
+    public int quantityDemanded;
     float _listLine;
     public bool _shoppingIsOver;
 
+    private void OnEnable()
+    {
+        EventManager.CashRegisterTarget += CashRegisterTarget;
+        EventManager.OpponentTargetPos += OpponentTargetPos;
+    }
+    private void OnDisable()
+    {
+        EventManager.CashRegisterTarget -= CashRegisterTarget;
+        EventManager.OpponentTargetPos -= OpponentTargetPos;
+    }
+    void CashRegisterTarget(Vector3 cashRTarget)
+    {
+        _cashRegisterTarget = cashRTarget;
+    }
+    void OpponentTargetPos(Vector3 opponentTarget)
+    {
+        _opponentTargetPos= opponentTarget;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Product>())
+        if (other.GetComponent<OpponentTarget>())
         {
-            _listLine = 0;
-            productList.Add(other.gameObject);
-            other.transform.parent = transform;
-            ListEditing();
+            if (productList.Count > 0)
+            {
+                for (int i = 0; i < productList.Count; i++)
+                {
+                    productList[i].transform.parent = null;
+                    productList[i].GetComponent<Product>().DestroyProduct();
+                    
+                }
+                productList.Clear();
+                _shoppingIsOver = false;
+            }
         }
+        
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<CashRegister>())
         {
-            _animator.SetBool("Walking", true);
-            if (transform.childCount == _quantityDemanded)
+            _animator.SetBool("Waiting", true);
+            if (productList.Count >= quantityDemanded)
             {
                 _shoppingIsOver = true;
-
             }
-
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<CashRegister>())
         {
-            _animator.SetBool("Walking", false);
+            _animator.SetBool("Waiting", false);
+            PayMoney();
+        }
+        if (other.GetComponent<OpponentTarget>())
+        {
+            quantityDemanded = Random.Range(1, 10);
         }
     }
+
     void Start()
     {
         _animator=GetComponentInChildren<Animator>();
         _agent=GetComponent<NavMeshAgent>();
-        _quantityDemanded = Random.Range(2, 10);
-        _startPosition = transform.position;
+        _textMeshPro = GetComponent<TextMeshPro>();
+        quantityDemanded = Random.Range(2, 10);
+        _animator.SetBool("Walking", true);
     }
 
     
     void Update()
     {
-        if (!_shoppingIsOver)
+        AnimationControl();
+        OpponentTMP();
+    }
+    public void AddProductList(GameObject product)
+    {
+        if (productList.Count< quantityDemanded)
         {
-            _agent.SetDestination(cashRegisterTarget.transform.position);
-        }
-        else
-        {
-            _agent.SetDestination(_startPosition);
+            productList.Add(product);
         }
     }
-    void ListEditing()
+    public void ListEditing()
     {
         if (productList.Count > 0)
         {
+            _listLine = 0;
             for (int i = 0; i < productList.Count; i++)
             {
-                if (productList[i].transform.parent == transform)
-                {
-                    
-                    productList[i].transform.localPosition = new Vector3(0, 0.25f + _listLine, -1.5f);
-                    _listLine += 0.5f;
-                }
-                else
-                {
-                    productList.RemoveAt(i);
-                }
+                productList[i].transform.parent = transform;
+                productList[i].transform.localPosition = new Vector3(0, 0.25f + _listLine, -1.5f);
+                _listLine += productList[i].gameObject.transform.lossyScale.y;
             }
         }
+    }
+    void PayMoney()
+    {
+        if (_shoppingIsOver)
+        {
+            for (int i = 0; i < quantityDemanded; i++)
+            {
+                GameObject ýnstantiateMoney = Instantiate(money, transform.position, Quaternion.identity);
+            }
+        }
+    }
+    void AnimationControl()
+    {
+        if (!_shoppingIsOver)
+        {
+            _agent.SetDestination(_cashRegisterTarget);
+        }
+        else
+        {
+            _agent.SetDestination(_opponentTargetPos);
+        }
+    }
+    void OpponentTMP()
+    {
+        _textMeshPro.text = (quantityDemanded-productList.Count).ToString();
     }
 }

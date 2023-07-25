@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4341988522873477634
 Transform:
   m_ObjectHideFlags: 0
@@ -109,7 +109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingseconds: 10
-  salesObject: {fileID: 0}
+  salesObject: {fileID: 229988549662213535, guid: a55536b7bf0a1f941bc2bf2bf4da66cf, type: 3}
+  salesHeight: 0.3
+  productList: []
 --- !u!1 &9078396460783237407
 GameObject:
   m_ObjectHideFlags: 0

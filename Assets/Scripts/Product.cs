@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Product : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public void DestroyProduct()
     {
-        
+        Destroy(this.gameObject, 2);
     }
 }
