@@ -14,11 +14,13 @@ public class CashRegister : MonoBehaviour
             if (productList.Count > 0)
             {
                 for (int i = 0; i < productList.Count; i++)
-                {                  
-                    other.GetComponent<OpponentManager>().AddProductList(productList[i]);
-                    productList.RemoveAt(i);
+                {
+                    if (i < other.GetComponent<OpponentManager>().quantityDemanded)
+                    {
+                        other.GetComponent<OpponentManager>().AddProductList(productList[i]);
+                        productList.RemoveAt(i);
+                    }
                 }
-                //productList.Clear();
             }
         }
     }
@@ -27,6 +29,7 @@ public class CashRegister : MonoBehaviour
         if (other.GetComponent<OpponentManager>())
         {
             other.GetComponent<OpponentManager>().ListEditing();
+            ListEditing();
         }
     }
     void Start()

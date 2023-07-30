@@ -91,7 +91,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9084820012740658939}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -108,9 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f837401769ed34a48849f0878272ea80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  salesDeskSC: {fileID: 11400000, guid: d28160576632a7848b25677d094b779a, type: 2}
   waitingseconds: 10
   salesObject: {fileID: 6737419372422804370, guid: 1194346b16e6b7348814791b6da3e0a4, type: 3}
   salesHeight: 0.5
+  clicked: 0
   productList: []
 --- !u!1 &9084820013122501906
 GameObject:
@@ -392,8 +394,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1483784, y: 1, z: 2.7163205}
-  m_Center: {x: 0, y: 0.5, z: 0.049625874}
+  m_Size: {x: 3.1483784, y: 0.4, z: 2.7163205}
+  m_Center: {x: 0, y: 0.2, z: 0.049625874}
 --- !u!114 &1898101098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,4 +408,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349d25f9c4138774f881bc71f6c1a585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  salesFee: 0
+  salesFee: 20

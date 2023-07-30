@@ -10,4 +10,6 @@ public static class EventManager
     public static Action<int> EarningMoney;
     public static Action<int> MoneyText;
     public static Action<int> PayMoney;
+    public static Action UpdteSalesDeskBtn;
+    public static Action<float> UpdateSalesDeskText;
 }

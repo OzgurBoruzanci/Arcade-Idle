@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    int _money;
+    int _money=10;
     float _listLine;
     Animator _playerAnim;
     public List<GameObject> productList;
@@ -40,7 +40,6 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<BuyArea>())
@@ -56,14 +55,17 @@ public class PlayerManager : MonoBehaviour
     {
         _money += getMoney;
         EventManager.MoneyText(_money);
+        PlayerPrefs.SetInt("Money", _money);
     }
     void PayMoney(int payM)
     {
         _money -= payM;
         EventManager.MoneyText(_money);
+        PlayerPrefs.SetInt("Money", _money);
     }
     void Start()
     {
+        MoneyControl();
         _playerAnim = transform.GetComponentInChildren<Animator>();
     }
 
@@ -71,10 +73,6 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         AnimControl();
-        if (transform.GetComponentInChildren<Animator>())
-        {
-            transform.GetChild(0).transform.localPosition = Vector3.zero;
-        }
     }
     public void ListEditing()
     {
@@ -84,7 +82,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < productList.Count; i++)
             {
                 productList[i].transform.parent = transform;
-                productList[i].transform.localPosition = new Vector3(0, 0.25f + _listLine, -1.5f);
+                productList[i].transform.localPosition = new Vector3(0, 0.5f + _listLine, -1.5f);
                 _listLine += productList[i].gameObject.transform.lossyScale.y;
             }
         }
@@ -98,6 +96,17 @@ public class PlayerManager : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             _playerAnim.SetBool("Walking", false);
+        }
+    }
+    void MoneyControl()
+    {
+        if (PlayerPrefs.GetInt("Money") != 0)
+        {
+            PlayerPrefs.SetInt("Money", _money);
+        }
+        else
+        {
+            _money = PlayerPrefs.GetInt("Money");
         }
     }
 }
