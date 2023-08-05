@@ -185,8 +185,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1483784, y: 0.4, z: 2.7163205}
-  m_Center: {x: 0, y: 0.2, z: 0.049625874}
+  m_Size: {x: 1.0365195, y: 0.4, z: 1.0122614}
+  m_Center: {x: 0.028515577, y: 0.2, z: -1}
 --- !u!114 &59858307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   salesFee: 30
+  isItLocked: 1
 --- !u!1 &7631203754545962384
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +213,8 @@ GameObject:
   - component: {fileID: 7631203754545962388}
   - component: {fileID: 7631203754545962389}
   - component: {fileID: 7631203754545962390}
-  - component: {fileID: 1703870626}
+  - component: {fileID: 8273708949130812279}
+  - component: {fileID: 7293607322401944963}
   m_Layer: 0
   m_Name: Desk
   m_TagString: Untagged
@@ -296,7 +298,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1703870626
+--- !u!65 &8273708949130812279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631203754545962384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.46281362, y: 0.4, z: 0.8991723}
+  m_Center: {x: -0.01283586, y: -0.2, z: -1}
+--- !u!114 &7293607322401944963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,14 +320,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7631203754545962384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f837401769ed34a48849f0878272ea80, type: 3}
+  m_Script: {fileID: 11500000, guid: 37757781eccdf2348a9fb14d3f7b1959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  salesDeskSC: {fileID: 11400000, guid: d28160576632a7848b25677d094b779a, type: 2}
-  waitingseconds: 10
+  salesDeskSC: {fileID: 11400000, guid: 3385faa2ecaae1e4cbe2b54454f2b4fb, type: 2}
+  waitingseconds: 0
   salesObject: {fileID: 2745375330246402227, guid: 9168e63752f72d5408b503b4eb1b6321, type: 3}
-  salesHeight: 0.25
-  clicked: 0
   productList: []
 --- !u!1 &7631203754831908240
 GameObject:
@@ -341,8 +354,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7631203754831908240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 3, y: 0.01, z: 3}
+  m_LocalPosition: {x: 0, y: 0.005, z: -1}
+  m_LocalScale: {x: 1, y: 0.01, z: 1}
   m_Children: []
   m_Father: {fileID: 3467550760978269892}
   m_RootOrder: 1

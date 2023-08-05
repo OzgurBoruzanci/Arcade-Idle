@@ -12,4 +12,7 @@ public static class EventManager
     public static Action<int> PayMoney;
     public static Action UpdteSalesDeskBtn;
     public static Action<float> UpdateSalesDeskText;
+    public static Action StartWalkingAnim;
+    public static Action StopWalkingAnim;
+    public static Action<string> UnlockedProduct;
 }

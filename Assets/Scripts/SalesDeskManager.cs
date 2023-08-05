@@ -8,9 +8,11 @@ public class SalesDeskManager : MonoBehaviour
     public float waitingseconds;
     Vector3 _salesObjPos;
     public GameObject salesObject;
-    public float salesHeight;
+    float _salesHeight;
     float _listLine;
     int _updateFee = 10;
+    int _limitToBeProduced;
+    int _productSalesFee;
     bool _clicked;
     public List<GameObject> productList;
     Color _firstColor;
@@ -24,34 +26,40 @@ public class SalesDeskManager : MonoBehaviour
         EventManager.UpdteSalesDeskBtn -= UpdteSalesDeskBtn;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.GetComponent<PlayerManager>())
+        if (other.GetComponent<PlayerManager>())
         {
             if (productList.Count > 0)
             {
                 for (int i = 0; i < productList.Count; i++)
                 {
-                    collision.gameObject.GetComponent<PlayerManager>().productList.Add(productList[i]);
+                    other.GetComponent<PlayerManager>().productList.Add(productList[i]);
                 }
                 productList.Clear();
             }
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.GetComponent<PlayerManager>())
+        if (other.GetComponent<PlayerManager>())
         {
-            collision.gameObject.GetComponent<PlayerManager>().ListEditing();
+            other.GetComponent<PlayerManager>().ListEditing();
         }
     }
 
     void Start()
     {
-        _firstColor=transform.GetComponent<Renderer>().material.color;
+        salesDeskSC.LevelSelection();
+        _salesHeight = salesObject.transform.lossyScale.y;
+        _firstColor =transform.GetComponent<Renderer>().material.color;
         waitingseconds=salesDeskSC.waitingseconds;
-        _salesObjPos=new Vector3(transform.position.x,transform.position.y-(_listLine/2), transform.position.z-2);
+        _limitToBeProduced=salesDeskSC.limitToBeProduced;
+        _productSalesFee=salesDeskSC.productSalesFee;
+        _salesObjPos =new Vector3(transform.position.x,transform.position.y-(_listLine/2), transform.position.z-2);
         StartCoroutine(CreateSalesObject());
+        
+        EventManager.UnlockedProduct(salesObject.name);
     }
     
     IEnumerator CreateSalesObject()
@@ -60,6 +68,7 @@ public class SalesDeskManager : MonoBehaviour
         {
             GameObject salesObj = Instantiate(salesObject, _salesObjPos, Quaternion.identity);
             productList.Add(salesObj);
+            salesObj.GetComponent<Product>().productFee = _productSalesFee;
             ListEditing();
             yield return new WaitForSeconds(waitingseconds);
         }
@@ -72,7 +81,7 @@ public class SalesDeskManager : MonoBehaviour
             for (int i = 0; i < productList.Count; i++)
             {
                 productList[i].transform.localPosition = new Vector3(_salesObjPos.x, _salesObjPos.y+_listLine, _salesObjPos.z);
-                _listLine += salesHeight;
+                _listLine += _salesHeight;
             }
         }
     }

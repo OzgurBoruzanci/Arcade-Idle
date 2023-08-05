@@ -10,8 +10,7 @@ public class PlayerMovement : MonoBehaviour
     float _vertical;
     public float speed = 10;
     public float lerpRotateSpeed = 10;
-    public DynamicJoystick dynamicJoystick;
-
+    public FloatingJoystick floatingJoystick;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -35,18 +34,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            _horizontal = dynamicJoystick.Horizontal;
-            _vertical = dynamicJoystick.Vertical;
+            _horizontal = floatingJoystick.Horizontal;
+            _vertical = floatingJoystick.Vertical;
             _joystickPos = new Vector3(_horizontal, 0, _vertical);
-            //transform.position += _joystickPos;
+
             transform.position+=(_joystickPos * speed * Time.deltaTime);
 
-            transform.rotation = Quaternion.LookRotation(_joystickPos);
-
+            if (_joystickPos != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(_joystickPos);
+                EventManager.StartWalkingAnim();
+            }
         }
         else if (Input.GetMouseButtonUp(0))
         {
             _rb.velocity = Vector3.zero;
+            EventManager.StopWalkingAnim();
         }
     }
 

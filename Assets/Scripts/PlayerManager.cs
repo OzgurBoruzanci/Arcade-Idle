@@ -13,16 +13,20 @@ public class PlayerManager : MonoBehaviour
     {
         EventManager.EarningMoney += EarningMoney;
         EventManager.PayMoney += PayMoney;
+        EventManager.StartWalkingAnim += StartWalkingAnim;
+        EventManager.StopWalkingAnim += StopWalkingAnim;
     }
     private void OnDisable()
     {
         EventManager.EarningMoney -= EarningMoney;
         EventManager.PayMoney -= PayMoney;
+        EventManager.StartWalkingAnim -= StartWalkingAnim;
+        EventManager.StopWalkingAnim -= StopWalkingAnim;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BuyArea>())
+        if (other.GetComponent<BuyArea>() && !other.GetComponent<BuyArea>().isItLocked)
         {
             EventManager.TotalMoney(_money);
             _playerAnim.SetBool("Waiting", true);
@@ -63,17 +67,26 @@ public class PlayerManager : MonoBehaviour
         EventManager.MoneyText(_money);
         PlayerPrefs.SetInt("Money", _money);
     }
+    void StartWalkingAnim()
+    {
+        _playerAnim.SetBool("Walking", true);
+    }
+    void StopWalkingAnim()
+    {
+        _playerAnim.SetBool("Walking", false);
+    }
     void Start()
     {
+        EventManager.TotalMoney(_money);
         MoneyControl();
         _playerAnim = transform.GetComponentInChildren<Animator>();
     }
 
     
-    void Update()
-    {
-        AnimControl();
-    }
+    //void Update()
+    //{
+    //    AnimControl();
+    //}
     public void ListEditing()
     {
         _listLine = 0;
@@ -87,17 +100,17 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    void AnimControl()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _playerAnim.SetBool("Walking", true);
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            _playerAnim.SetBool("Walking", false);
-        }
-    }
+    //void AnimControl()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        _playerAnim.SetBool("Walking", true);
+    //    }
+    //    else if (Input.GetMouseButtonUp(0))
+    //    {
+    //        _playerAnim.SetBool("Walking", false);
+    //    }
+    //}
     void MoneyControl()
     {
         if (PlayerPrefs.GetInt("Money") != 0)

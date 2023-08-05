@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
+using UnityEditor.PackageManager.Requests;
+using System.Diagnostics;
 
 public class OpponentManager : MonoBehaviour
 {
+    List<string> _unlockedProductsList;
     TextMeshPro _textMeshPro;
     Vector3 _cashRegisterTarget;
     public GameObject money;
@@ -16,16 +19,20 @@ public class OpponentManager : MonoBehaviour
     public int quantityDemanded;
     float _listLine;
     public bool _shoppingIsOver;
+    public string chooseProductName;
+    int _moneyToBePaid;
 
     private void OnEnable()
     {
         EventManager.CashRegisterTarget += CashRegisterTarget;
         EventManager.OpponentTargetPos += OpponentTargetPos;
+        EventManager.UnlockedProduct += UnlockedProduct;
     }
     private void OnDisable()
     {
         EventManager.CashRegisterTarget -= CashRegisterTarget;
         EventManager.OpponentTargetPos -= OpponentTargetPos;
+        EventManager.UnlockedProduct -= UnlockedProduct;
     }
     void CashRegisterTarget(Vector3 cashRTarget)
     {
@@ -34,6 +41,12 @@ public class OpponentManager : MonoBehaviour
     void OpponentTargetPos(Vector3 opponentTarget)
     {
         _opponentTargetPos= opponentTarget;
+    }
+    void UnlockedProduct(string product)
+    {
+        UnityEngine.Debug.Log(product + " " + _unlockedProductsList.Count);
+        _unlockedProductsList.Add(product);
+        ChooseProduct();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -73,7 +86,8 @@ public class OpponentManager : MonoBehaviour
         }
         if (other.GetComponent<OpponentTarget>())
         {
-            quantityDemanded = Random.Range(1, 10);
+            //quantityDemanded = Random.Range(1, 10);
+            ChooseProduct();
         }
     }
 
@@ -82,8 +96,9 @@ public class OpponentManager : MonoBehaviour
         _animator=GetComponentInChildren<Animator>();
         _agent=GetComponent<NavMeshAgent>();
         _textMeshPro = GetComponent<TextMeshPro>();
-        quantityDemanded = Random.Range(2, 10);
         _animator.SetBool("Walking", true);
+        _unlockedProductsList=new List<string>();
+        
     }
 
     
@@ -116,25 +131,40 @@ public class OpponentManager : MonoBehaviour
     {
         if (_shoppingIsOver)
         {
-            for (int i = 0; i < quantityDemanded; i++)
+            for (int i = 0; i < productList.Count; i++)
             {
-                GameObject ýnstantiateMoney = Instantiate(money, transform.position, Quaternion.identity);
+                _moneyToBePaid += productList[i].GetComponent<Product>().productFee;
+            }
+            for (int i = 0; i < _moneyToBePaid; i++)
+            {
+                GameObject instantiateMoney = Instantiate(money, transform.position, Quaternion.identity);
             }
         }
     }
     void AnimationControl()
     {
-        if (!_shoppingIsOver)
+        if (_unlockedProductsList.Count>0)
         {
-            _agent.SetDestination(_cashRegisterTarget);
-        }
-        else
-        {
-            _agent.SetDestination(_opponentTargetPos);
+            if (!_shoppingIsOver)
+            {
+                _agent.SetDestination(_cashRegisterTarget);
+            }
+            else
+            {
+                _agent.SetDestination(_opponentTargetPos);
+            }
         }
     }
     void OpponentTMP()
     {
-        _textMeshPro.text = (quantityDemanded-productList.Count).ToString();
+        _textMeshPro.text = (quantityDemanded - productList.Count).ToString() + " " + chooseProductName;
+    }
+
+    void ChooseProduct()
+    {
+        quantityDemanded = Random.Range(2, 10);
+        int chooseNum= Random.Range(0, _unlockedProductsList.Count-1);
+        UnityEngine.Debug.Log(chooseNum);
+        chooseProductName= _unlockedProductsList[chooseNum];
     }
 }

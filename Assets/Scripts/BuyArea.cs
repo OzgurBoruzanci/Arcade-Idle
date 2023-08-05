@@ -7,8 +7,8 @@ public class BuyArea : MonoBehaviour
 {
     int _playerMoney;
     public int salesFee;
-    TextMeshPro salesText;
-    bool isItLocked=true;
+    TextMeshPro _salesText;
+    public bool isItLocked=true;
 
     private void OnEnable()
     {
@@ -25,8 +25,8 @@ public class BuyArea : MonoBehaviour
     }
     void Start()
     {
-        salesText = GetComponent<TextMeshPro>();
-
+        _salesText = GetComponent<TextMeshPro>();
+        _salesText.text = "SPHERE UNLOCK FOR " + salesFee + " MONEY";
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -42,7 +42,7 @@ public class BuyArea : MonoBehaviour
         {
             isItLocked = false;
             transform.GetChild(0).gameObject.SetActive(true);
-            salesText.text = " ";
+            _salesText.text = " ";
             EventManager.PayMoney(salesFee);
         }
     }

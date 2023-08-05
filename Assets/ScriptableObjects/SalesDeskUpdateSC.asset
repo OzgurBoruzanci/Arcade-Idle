@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02940196be33173428ad010202df444e, type: 3}
-  m_Name: SalesDeskSC
+  m_Name: SalesDeskUpdateSC
   m_EditorClassIdentifier: 
-  waitingseconds: 6
+  level: 0
+  waitingseconds: 0
+  limitToBeProduced: 0
+  productSalesFee: 0

@@ -29,7 +29,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2753774277950828611}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -20.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -87,6 +87,7 @@ MonoBehaviour:
   productList: []
   quantityDemanded: 0
   _shoppingIsOver: 0
+  chooseProductName: 
 --- !u!195 &2753774277950828610
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -203,7 +204,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 2
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -233,7 +234,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 9.445519, y: -1.1367943, z: 9.409057, w: 5.1038694}
+  m_margin: {x: 9.032273, y: -1.9617605, z: 8.937275, w: 5.1038694}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
